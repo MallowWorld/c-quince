@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C-Quince Demo</title>
+    <script src="easeljs-0.8.2.min.js"></script>
+    <script src="tweenjs-0.6.2.min.js"></script>
+    <script src="preloadjs-0.6.2.min.js"></script>
+    <script src="c-quince.js"></script>
+</head>
+<body onload="init();">
+    <textarea id="workspace" style="width: 800px; height: 400px; float: right;"></textarea>
+    <canvas id="demoCanvas" width="800" height="875" style="border: 3px outset skyblue; margin: 5px; float: left;"></canvas>
+    <br style="clear: right;" />
+    <br />
+    <button onclick="sprite.execute('workspace')" style="float: right;">Run</button>
+    <div style="float: left;">
+        <button onclick="sprite.moveUp()">Move Up</button>
+        <br />
+        <button onclick="sprite.moveLeft()">Move Left</button>
+        <button onclick="sprite.moveRight()">Move Right</button>
+        <br />
+        <button onclick="sprite.moveDown()">Move Down</button>
+        <br />
+        <br />
+        <button onclick="sprite.spin()">Spin</button>
+        <button onclick="sprite.stop()">Stop</button>
+    </div>
+</body>
+</html>
