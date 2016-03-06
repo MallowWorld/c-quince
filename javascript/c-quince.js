@@ -2,7 +2,7 @@ cquince = {};
 
 (function() {
     cquince.Sprite = function(canvas) {
-        this.spriteSheet = new createjs.SpriteSheet({
+        var spriteSheet = new createjs.SpriteSheet({
             images: ["images/sprite_sheet.png"],
             frames: {
                 width: 100, height: 175, count: 4, spacing: 50
@@ -12,60 +12,61 @@ cquince = {};
             },
             framerate: 2
         });
-        this.sprite = new createjs.Sprite(this.spriteSheet, "front");
-        this.sprite.x = 100;
-        this.sprite.y = 100;
 
-        this.stage = new createjs.Stage(canvas);
-        this.stage.addChild(this.sprite);
+        var sprite = new createjs.Sprite(spriteSheet, "front");
+        sprite.x = 100;
+        sprite.y = 100;
+
+        var stage = new createjs.Stage(canvas);
+        stage.addChild(sprite);
 
         createjs.Ticker.setFPS(120);
-        createjs.Ticker.addEventListener("tick", this.stage);
+        createjs.Ticker.addEventListener("tick", stage);
+
+        this.spriteSheet = spriteSheet;
+        this.sprite = sprite;
+        this.stage = stage;
+        this.tween = createjs.Tween(sprite, { paused: true });
     };
 
     cquince.Sprite.prototype = {
-        move: function(x, y) {
+        move: function(x, y, animation) {
             var newX = this.sprite.x + x;
             var newY = this.sprite.y + y;
             if (checkBound(newX) && checkBound(newY)) {
-                createjs.Tween.get(this.sprite)
+                var tween = createjs.Tween.get(this.sprite, { paused: true })
+                    .call(this.animate, [animation], this)
                     .wait(50)
                     .to({ x: newX, y: newY }, 500);
+                if (createjs.Tween.hasActiveTweens()) {
+                    console.log("active");
+                    this.tween.play(tween);
+                } else {
+                    this.tween = tween;
+                    tween.setPaused(false);
+                }
             }
         },
+        animate: function(animation) {
+            this.sprite.gotoAndPlay(animation);
+        },
         moveRight: function() {
-            this.turnRight();
-            this.move(100, 0);
+            this.move(100, 0, "right");
         },
         moveDown: function() {
-            this.turnForward();
-            this.move(0, 100);
+            this.move(0, 100, "front");
         },
         moveLeft: function() {
-            this.turnLeft();
-            this.move(-100, 0);
+            this.move(-100, 0, "left");
         },
         moveUp: function() {
-            this.turnBackward();
-            this.move(0, -100);
+            this.move(0, -100, "back");
         },
         spin: function() {
             this.sprite.gotoAndPlay("spin");
         },
         stop: function() {
             this.sprite.gotoAndStop("front");
-        },
-        turnForward: function() {
-            this.sprite.gotoAndStop("front");
-        },
-        turnRight: function() {
-            this.sprite.gotoAndStop("right");
-        },
-        turnBackward: function() {
-            this.sprite.gotoAndStop("back");
-        },
-        turnLeft: function() {
-            this.sprite.gotoAndStop("left");
         },
         execute: function(textarea) {
             var code = document.getElementById(textarea).value;
