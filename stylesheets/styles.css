@@ -67,8 +67,10 @@ header {
   position: relative;
   padding: 15px 20px;
   border-bottom: 1px solid #B2D2E1;
+  height: 50px;
 }
 header h1 {
+  display: none;
   margin: 0;
   padding: 0;
   font-size: 24px;
@@ -80,6 +82,7 @@ header.without-description h1 {
   margin: 10px 0;
 }
 header p {
+  display: none;
   margin: 0;
   color: #61778B;
   width: 300px;
@@ -353,4 +356,31 @@ footer p + p {
   header p.view a small:before {
     content: 'at https://github.com/';
   }
+}
+
+#forkme-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 149px;
+  width: 149px;
+  background: url('../images/forkme.png');
+  text-indent: -9000px;
+}
+
+header .cameo {
+  display: block;
+  float: left;
+  height: 50px;
+  width: 50px;
+  background: url('../images/c-quince_square.png') no-repeat;
+  background-size: 50px;
+}
+
+header .cameo-text {
+  display: block;
+  float: left;
+  height: 50px;
+  width: 212px;
+  background: url('../images/logo_text.png') no-repeat;
 }
