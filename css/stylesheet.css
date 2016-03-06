@@ -1,0 +1,20 @@
+#demoCanvas {
+    border: 3px outset skyblue;
+    margin: 5px;
+    /*float: left;*/
+    background: url('../images/background.png');
+}
+
+#workspace {
+    border: 3px outset slategray;
+    margin: 5px;
+    width: 600px;
+    height: 150px;
+    font-size: larger;
+    font-family: Consolas, "Courier New", serif;
+    /*float: right;*/
+}
+
+label {
+    display: block;
+}

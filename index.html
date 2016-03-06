@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>C-Quince Demo</title>
+    <link rel="stylesheet" href="css/stylesheet.css" />
     <script src="javascript/easeljs-0.8.2.min.js"></script>
     <script src="javascript/tweenjs-0.6.2.min.js"></script>
     <script src="javascript/preloadjs-0.6.2.min.js"></script>
     <script src="javascript/c-quince.js"></script>
 </head>
 <body onload="init();">
-    <textarea id="workspace" style="width: 800px; height: 400px; float: right;"></textarea>
-    <canvas id="demoCanvas" width="800" height="875" style="border: 3px outset skyblue; margin: 5px; float: left;"></canvas>
-    <br style="clear: right;" />
+    <label for="workspace">Workspace</label>
+    <textarea id="workspace"></textarea>
     <br />
-    <button onclick="sprite.execute('workspace')" style="float: right;">Run</button>
-    <div style="float: left;">
-        <button onclick="sprite.moveUp()">Move Up</button>
+    <button onclick="sprite.execute('workspace')">Run</button>
+    <br />
+    <br />
+    <canvas id="demoCanvas" width="600" height="475"></canvas>
+    <br />
+    <br />
+    <fieldset>
+        <button onclick="sprite.moveUp().play()">Move Up</button>
         <br />
-        <button onclick="sprite.moveLeft()">Move Left</button>
-        <button onclick="sprite.moveRight()">Move Right</button>
+        <button onclick="sprite.moveLeft().play()">Move Left</button>
+        <button onclick="sprite.moveRight().play()">Move Right</button>
         <br />
-        <button onclick="sprite.moveDown()">Move Down</button>
+        <button onclick="sprite.moveDown().play()">Move Down</button>
         <br />
         <br />
-        <button onclick="sprite.spin()">Spin</button>
-        <button onclick="sprite.stop()">Stop</button>
-    </div>
+        <button onclick="sprite.spin().play()">Spin</button>
+        <button onclick="sprite.peck().play()">Peck</button>
+        <button onclick="sprite.bow().play()">Bow</button>
+        <button onclick="sprite.stop().play()">Stop</button>
+    </fieldset>
 </body>
 </html>
