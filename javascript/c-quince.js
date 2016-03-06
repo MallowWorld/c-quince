@@ -2,7 +2,7 @@ cquince = {};
 
 (function() {
     cquince.Sprite = function(canvas) {
-        this.spriteSheet = new createjs.SpriteSheet({
+        var spriteSheet = new createjs.SpriteSheet({
             images: ["images/sprite_sheet.png"],
             frames: {
                 width: 100, height: 175, count: 4, spacing: 50
@@ -12,26 +12,57 @@ cquince = {};
             },
             framerate: 2
         });
-        this.sprite = new createjs.Sprite(this.spriteSheet, "front");
-        this.sprite.x = 100;
-        this.sprite.y = 100;
 
-        this.stage = new createjs.Stage(canvas);
-        this.stage.addChild(this.sprite);
+        var sprite = new createjs.Sprite(spriteSheet, "front");
+        sprite.x = 100;
+        sprite.y = 100;
+
+        var stage = new createjs.Stage(canvas);
+        stage.addChild(sprite);
 
         createjs.Ticker.setFPS(120);
-        createjs.Ticker.addEventListener("tick", this.stage);
+        createjs.Ticker.addEventListener("tick", stage);
+
+        this.spriteSheet = spriteSheet;
+        this.sprite = sprite;
+        this.stage = stage;
+        this.queue = [];
     };
 
     cquince.Sprite.prototype = {
         move: function(x, y) {
-            var newX = this.sprite.x + x;
-            var newY = this.sprite.y + y;
-            if (checkBound(newX) && checkBound(newY)) {
-                createjs.Tween.get(this.sprite)
-                    .wait(50)
-                    .to({ x: newX, y: newY }, 500);
+            var that = this;
+            var sprite = this.sprite;
+            var queue = this.queue;
+
+            var f = function() {
+                var newX = sprite.x + x;
+                var newY = sprite.y + y;
+                console.log("move: " + x + ", " + y + " => " + newX + ", " + newY);
+                if (checkBound(newX) && checkBound(newY)) {
+                    createjs.Tween.get(sprite)
+                        .wait(50)
+                        .to({x: newX, y: newY}, 500)
+                        .call(dispatch, [that]);
+                }
+            };
+
+            // queue animation
+            queue.push(f);
+            if (queue.length == 1) {
+                console.log("hotshot m");
+                dispatch(this);
             }
+        },
+        animate: function(animation) {
+            var sprite = this.sprite;
+            var queue = this.queue;
+
+            // queue animation
+            queue.push(function() {
+                console.log("animate: " + animation);
+                sprite.gotoAndPlay(animation);
+            });
         },
         moveRight: function() {
             this.turnRight();
@@ -50,22 +81,22 @@ cquince = {};
             this.move(0, -100);
         },
         spin: function() {
-            this.sprite.gotoAndPlay("spin");
+            this.animate("spin");
         },
         stop: function() {
-            this.sprite.gotoAndStop("front");
+            this.animate("front");
         },
         turnForward: function() {
-            this.sprite.gotoAndStop("front");
+            this.animate("front");
         },
         turnRight: function() {
-            this.sprite.gotoAndStop("right");
+            this.animate("right");
         },
         turnBackward: function() {
-            this.sprite.gotoAndStop("back");
+            this.animate("back");
         },
         turnLeft: function() {
-            this.sprite.gotoAndStop("left");
+            this.animate("left");
         },
         execute: function(textarea) {
             var code = document.getElementById(textarea).value;
@@ -84,6 +115,15 @@ cquince = {};
             //head.appendChild(script);
         }
     };
+
+    function dispatch(sprite) {
+        var queue = sprite.queue;
+        if (queue.length > 0) {
+            console.log("dispatch");
+            var f = queue.pop();
+            f();
+        }
+    }
 
     function checkBound(coord) {
         return (coord <= 700 && coord >= 0);
