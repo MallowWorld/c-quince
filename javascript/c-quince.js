@@ -3,7 +3,7 @@ cquince = {};
 (function() {
     cquince.Sprite = function(canvas) {
         this.spriteSheet = new createjs.SpriteSheet({
-            images: ["sprite_sheet.png"],
+            images: ["images/sprite_sheet.png"],
             frames: {
                 width: 100, height: 175, count: 4, spacing: 50
             },
