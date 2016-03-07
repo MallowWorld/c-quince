@@ -9,29 +9,37 @@
     <script src="javascript/preloadjs-0.6.2.min.js"></script>
     <script src="javascript/c-quince.js"></script>
 </head>
-<body onload="init();">
-    <label for="workspace">Workspace</label>
-    <textarea id="workspace"></textarea>
-    <br />
-    <button onclick="sprite.execute('workspace')">Run</button>
+<body onload="init()">
+    <fieldset>
+        <button onclick="moveUp().play()">Move Up</button>
+        <br />
+        <button onclick="moveLeft().play()">Move Left</button>
+        <button onclick="moveRight().play()">Move Right</button>
+        <br />
+        <button onclick="moveDown().play()">Move Down</button>
+        <br />
+        <br />
+        <button onclick="spin().play()">Spin</button>
+        <button onclick="peck().play()">Peck</button>
+        <button onclick="bow().play()">Bow</button>
+        <button onclick="reset()">Reset</button>
+    </fieldset>
     <br />
     <br />
     <canvas id="demoCanvas" width="600" height="475"></canvas>
     <br />
     <br />
-    <fieldset>
-        <button onclick="sprite.moveUp().play()">Move Up</button>
-        <br />
-        <button onclick="sprite.moveLeft().play()">Move Left</button>
-        <button onclick="sprite.moveRight().play()">Move Right</button>
-        <br />
-        <button onclick="sprite.moveDown().play()">Move Down</button>
-        <br />
-        <br />
-        <button onclick="sprite.spin().play()">Spin</button>
-        <button onclick="sprite.peck().play()">Peck</button>
-        <button onclick="sprite.bow().play()">Bow</button>
-        <button onclick="sprite.stop().play()">Stop</button>
-    </fieldset>
+    <label for="workspace">Workspace</label>
+    <textarea id="workspace">
+setSpeed(0.5);
+
+moveDown();
+moveLeft();
+moveUp();
+moveRight();</textarea>
+    <br />
+    <button onclick="execute()">Run</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
 </body>
 </html>

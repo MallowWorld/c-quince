@@ -47,6 +47,7 @@ cquince = {};
         this.stage = stage;
         this.tween = createjs.Tween(sprite, { paused: true });
         this.queue = [];
+        this.speed = 1000;
     };
 
     cquince.Sprite.prototype = {
@@ -54,7 +55,7 @@ cquince = {};
             queue(function() {
                 console.log("animate " + animation);
                 this.sprite.gotoAndPlay(animation);
-                playNext.call(this);
+                this.sprite.dispatchEvent("play");
             }, this, []);
             return this;
         },
@@ -62,11 +63,12 @@ cquince = {};
             queue(function() {
                 console.log("move " + x + "," + y);
                 createjs.Tween.get(this.sprite)
-                    .wait(50)
+                    .wait(this.speed / 4)
                     .to({
                         x: this.sprite.x + x,
                         y: this.sprite.y + y
-                    }, 500)
+                    }, this.speed / 2)
+                    .wait(this.speed / 4)
                     .call(playNext, [], this);
             }, this);
             return this;
@@ -81,10 +83,6 @@ cquince = {};
         },
         bow: function() {
             this.animate("bow");
-            return this;
-        },
-        stop: function() {
-            this.animate("front");
             return this;
         },
         moveUp: function() {
@@ -107,16 +105,28 @@ cquince = {};
             this.sprite.dispatchEvent("play");
             return this;
         },
-        execute: function(workspace) {
-            eval($(workspace).value);
-            this.play();
+        reset: function() {
+            if (this.queue.length > 0) {
+                this.queue = [];
+                queue(function () {
+                    this.speed = 1000;
+                    this.sprite.x = 100;
+                    this.sprite.y = 100;
+                    this.sprite.gotoAndStop("front");
+                }, this, []);
+            } else {
+                this.speed = 1000;
+                this.sprite.x = 100;
+                this.sprite.y = 100;
+                this.sprite.gotoAndStop("front");
+            }
+            return this;
+        },
+        stop: function() {
+            this.queue = [];
             return this;
         }
     };
-
-    function $(id) {
-        return document.getElementById(id);
-    }
 
     function queue(f, context, args) {
         context.queue.push(function() {
@@ -132,22 +142,59 @@ cquince = {};
     }
 })();
 
+function $(id) {
+    return document.getElementById(id);
+}
+
 function init() {
     window.sprite = new cquince.Sprite("demoCanvas");
 }
 
+function setSpeed(speed) {
+    sprite.speed = speed * 1000;
+}
+
 function moveUp() {
-    sprite.moveUp();
+    return sprite.moveUp();
 }
 
 function moveRight() {
-    sprite.moveRight();
+    return sprite.moveRight();
 }
 
 function moveDown() {
-    sprite.moveDown();
+    return sprite.moveDown();
 }
 
 function moveLeft() {
-    sprite.moveLeft();
+    return sprite.moveLeft();
+}
+
+function spin() {
+    return sprite.spin();
+}
+
+function peck() {
+    return sprite.peck();
+}
+
+function bow() {
+    return sprite.bow();
+}
+
+function play() {
+    return sprite.play();
+}
+
+function execute() {
+    eval($("workspace").value);
+    return sprite.play();
+}
+
+function reset() {
+    return sprite.reset();
+}
+
+function stop() {
+    return sprite.stop();
 }
