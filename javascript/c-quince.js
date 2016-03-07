@@ -73,34 +73,6 @@ cquince = {};
             }, this);
             return this;
         },
-        spin: function() {
-            this.animate("spin");
-            return this;
-        },
-        peck: function() {
-            this.animate("peck");
-            return this;
-        },
-        bow: function() {
-            this.animate("bow");
-            return this;
-        },
-        moveUp: function() {
-            this.animate("back").move(0, -100);
-            return this;
-        },
-        moveRight: function() {
-            this.animate("right").move(100, 0);
-            return this;
-        },
-        moveDown: function() {
-            this.animate("front").move(0, 100);
-            return this;
-        },
-        moveLeft: function() {
-            this.animate("left").move(-100, 0);
-            return this;
-        },
         play: function() {
             this.sprite.dispatchEvent("play");
             return this;
@@ -125,6 +97,27 @@ cquince = {};
         stop: function() {
             this.queue = [];
             return this;
+        },
+        spin: function() {
+            return this.animate("spin");
+        },
+        peck: function() {
+            return this.animate("peck");
+        },
+        bow: function() {
+            return this.animate("bow");
+        },
+        moveUp: function() {
+            return this.animate("back").move(0, -100);
+        },
+        moveRight: function() {
+            return this.animate("right").move(100, 0);
+        },
+        moveDown: function() {
+            return this.animate("front").move(0, 100);
+        },
+        moveLeft: function() {
+            return this.animate("left").move(-100, 0);
         }
     };
 
@@ -186,15 +179,15 @@ function play() {
     return sprite.play();
 }
 
-function execute() {
-    eval($("workspace").value);
-    return sprite.play();
-}
-
 function reset() {
     return sprite.reset();
 }
 
 function stop() {
     return sprite.stop();
+}
+
+function execute() {
+    eval($("workspace").value);
+    return sprite.play();
 }
