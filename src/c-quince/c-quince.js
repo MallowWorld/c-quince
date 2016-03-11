@@ -3,6 +3,19 @@ cquince = {};
 (function() {
     "use strict";
 
+    /**
+     * Construct a c-quince sprite object used to control movement of a sprite
+     * on an HTML5 &lt;canvas&gt;.
+     * 
+     * This class uses the CreateJS library, specifically TweenJS and EaselJS
+     * to animate the sprite. Because this library operates asynchronously, an
+     * internal queue of animation functions is maintained to script the actions
+     * the sprite takes. All API methods simply add to the internal queue, and
+     * the <code>play</code> method is used to execute them.
+     * 
+     * @param canvas The HTML5 canvas elementID
+     * @constructor
+     */
     cquince.Sprite = function(canvas) {
         var spriteSheet = new createjs.SpriteSheet({
             images: ["images/sprite_sheet_3.png", "images/down_profile_right.png"],
@@ -34,7 +47,6 @@ cquince = {};
         var sprite = new createjs.Sprite(spriteSheet, "front");
         sprite.x = 175;
         sprite.y = 175;
-        sprite.on("play", playNext, this);
 
         var stage = new createjs.Stage(canvas);
         stage.addChild(sprite);
@@ -51,14 +63,27 @@ cquince = {};
     };
 
     cquince.Sprite.prototype = {
+        /**
+         * Perform a sprite animation by name.
+         * 
+         * @param animation A named animation to perform
+         * @returns {cquince.Sprite} This object
+         */
         animate: function(animation) {
             queue(function() {
                 console.log("animate " + animation);
                 this.sprite.gotoAndPlay(animation);
-                this.sprite.dispatchEvent("play");
+                this.play();
             }, this, []);
             return this;
         },
+        /**
+         * Move the specified number of pixels along the x and y axis.
+         * 
+         * @param x The number of horizontal pixels to move
+         * @param y The number of vertical pixels to move
+         * @returns {cquince.Sprite} This object
+         */
         move: function(x, y) {
             queue(function() {
                 console.log("move " + x + "," + y);
@@ -69,14 +94,25 @@ cquince = {};
                         y: this.sprite.y + y
                     }, this.speed / 2)
                     .wait(this.speed / 4)
-                    .call(playNext, [], this);
+                    .call(this.play, [], this);
             }, this);
             return this;
         },
+        /**
+         * Play a sequence of animations from the internal play buffer.
+         * 
+         * @returns {cquince.Sprite} This object
+         */
         play: function() {
-            this.sprite.dispatchEvent("play");
+            playNext.call(this);
             return this;
         },
+        /**
+         * Reset this sprite at the next opportunity by clearing the play buffer
+         * and placing it in its starting position.
+         * 
+         * @returns {cquince.Sprite} This object
+         */
         reset: function() {
             if (this.queue.length > 0) {
                 this.queue = [];
@@ -94,28 +130,68 @@ cquince = {};
             }
             return this;
         },
+        /**
+         * Stop this sprite at the next opportunity by clearing the play buffer.
+         * 
+         * @returns {cquince.Sprite} This object
+         */
         stop: function() {
             this.queue = [];
             return this;
         },
+        /**
+         * Perform the "spin" animation.
+         * 
+         * @returns {*|cquince.Sprite} This object
+         */
         spin: function() {
             return this.animate("spin");
         },
+        /**
+         * Perform the "peck" animation.
+         * 
+         * @returns {*|cquince.Sprite} This object
+         */
         peck: function() {
             return this.animate("peck");
         },
+        /**
+         * Perform the "bow" animation.
+         *
+         * @returns {*|cquince.Sprite} This object
+         */
         bow: function() {
             return this.animate("bow");
         },
+        /**
+         * Perform the "move up" animation.
+         *
+         * @returns {*|cquince.Sprite} This object
+         */
         moveUp: function() {
             return this.animate("back").move(0, -175);
         },
+        /**
+         * Perform the "move right" animation.
+         *
+         * @returns {*|cquince.Sprite} This object
+         */
         moveRight: function() {
             return this.animate("right").move(175, 0);
         },
+        /**
+         * Perform the "move down" animation.
+         *
+         * @returns {*|cquince.Sprite} This object
+         */
         moveDown: function() {
             return this.animate("front").move(0, 175);
         },
+        /**
+         * Perform the "move left" animation.
+         *
+         * @returns {*|cquince.Sprite} This object
+         */
         moveLeft: function() {
             return this.animate("left").move(-175, 0);
         }
@@ -139,55 +215,122 @@ function $(id) {
     return document.getElementById(id);
 }
 
-function init() {
-    window.sprite = new cquince.Sprite("demoCanvas");
+/**
+ * Initialize the default sprite instance.
+ * 
+ * @param canvas* The HTML5 canvas elementID, defaults to "demoCanvas"
+ */
+function init(canvas) {
+    window.sprite = new cquince.Sprite(canvas || "demoCanvas");
 }
 
+/**
+ * Set the speed, in seconds, that each movement animation takes to complete.
+ * 
+ * @param speed The speed of movement animations, in seconds
+ */
 function setSpeed(speed) {
     sprite.speed = speed * 1000;
 }
 
+/**
+ * Perform the "move up" animation.
+ * 
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function moveUp() {
     return sprite.moveUp();
 }
 
+/**
+ * Perform the "move right" animation.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function moveRight() {
     return sprite.moveRight();
 }
 
+/**
+ * Perform the "move down" animation.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function moveDown() {
     return sprite.moveDown();
 }
 
+/**
+ * Perform the "move left" animation.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function moveLeft() {
     return sprite.moveLeft();
 }
 
+/**
+ * Perform the "spin" animation.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function spin() {
     return sprite.spin();
 }
 
+/**
+ * Perform the "peck" animation.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function peck() {
     return sprite.peck();
 }
 
+/**
+ * Perform the "bow" animation.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function bow() {
     return sprite.bow();
 }
 
+/**
+ * Play a sequence of animations from the internal play buffer.
+ *
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function play() {
     return sprite.play();
 }
 
+/**
+ * Reset this sprite at the next opportunity by clearing the play buffer
+ * and placing it in its starting position.
+ * 
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function reset() {
     return sprite.reset();
 }
 
+/**
+ * Stop this sprite at the next opportunity by clearing the play buffer.
+ * 
+ * @returns {*|cquince.Sprite} The sprite object
+ */
 function stop() {
     return sprite.stop();
 }
 
-function execute() {
-    eval($("workspace").value);
+/**
+ * Execute the code block for the given textarea as a script.
+ * 
+ * @param textarea* The textarea <code>elementID</code>, defaults to "workspace"
+ * @returns {*|cquince.Sprite} The sprite object
+ */
+function execute(textarea) {
+    eval($(textarea || "workspace").value);
     return sprite.play();
 }
