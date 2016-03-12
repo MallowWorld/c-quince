@@ -18,9 +18,9 @@ cquince = {};
      */
     cquince.Sprite = function(canvas) {
         var spriteSheet = new createjs.SpriteSheet({
-            images: ["images/sprite_sheet_3.png", "images/down_profile_right.png"],
+            images: ["images/sprite_sheet.png", "images/down_profile_right.png"],
             frames: {
-                width: 175, height: 175, regX: 0, regY: 0
+                width: 121, height: 121, regX: -15.5, regY: 21
             },
             animations: {
                 front: 0, right: 1, back: 2, left: 3,
@@ -45,8 +45,8 @@ cquince = {};
             framerate: 8
         });
         var sprite = new createjs.Sprite(spriteSheet, "front");
-        sprite.x = 175;
-        sprite.y = 175;
+        sprite.x = 100;
+        sprite.y = 100;
 
         var stage = new createjs.Stage(canvas);
         stage.addChild(sprite);
@@ -118,14 +118,14 @@ cquince = {};
                 this.queue = [];
                 queue(function () {
                     this.speed = 1000;
-                    this.sprite.x = 175;
-                    this.sprite.y = 175;
+                    this.sprite.x = 100;
+                    this.sprite.y = 100;
                     this.sprite.gotoAndStop("front");
                 }, this, []);
             } else {
                 this.speed = 1000;
-                this.sprite.x = 175;
-                this.sprite.y = 175;
+                this.sprite.x = 100;
+                this.sprite.y = 100;
                 this.sprite.gotoAndStop("front");
             }
             return this;
@@ -169,7 +169,7 @@ cquince = {};
          * @returns {*|cquince.Sprite} This object
          */
         moveUp: function() {
-            return this.animate("back").move(0, -175);
+            return this.animate("back").move(0, -100);
         },
         /**
          * Perform the "move right" animation.
@@ -177,7 +177,7 @@ cquince = {};
          * @returns {*|cquince.Sprite} This object
          */
         moveRight: function() {
-            return this.animate("right").move(175, 0);
+            return this.animate("right").move(100, 0);
         },
         /**
          * Perform the "move down" animation.
@@ -185,7 +185,7 @@ cquince = {};
          * @returns {*|cquince.Sprite} This object
          */
         moveDown: function() {
-            return this.animate("front").move(0, 175);
+            return this.animate("front").move(0, 100);
         },
         /**
          * Perform the "move left" animation.
@@ -193,7 +193,7 @@ cquince = {};
          * @returns {*|cquince.Sprite} This object
          */
         moveLeft: function() {
-            return this.animate("left").move(-175, 0);
+            return this.animate("left").move(-100, 0);
         }
     };
 

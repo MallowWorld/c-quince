@@ -2,7 +2,6 @@
     border: 10px solid skyblue;
     border-radius: 8px;
     margin: 5px;
-    padding: 5px;
     background: url('../images/background.png') -9px -9px;
 }
 
@@ -12,8 +11,8 @@
     background-color: #f0f0f0;
     margin: 5px;
     padding: 5px;
-    width: 800px;
-    height: 175px;
+    width: 790px;
+    height: 200px;
     font-size: larger;
     font-weight: bold;
     color: dimgrey;
@@ -25,7 +24,7 @@ label.workspace {
     margin: 5px;
     padding: 5px;
     display: inline-block;
-    width: 820px;
+    width: 810px;
     font-size: larger;
 }
 
@@ -45,7 +44,7 @@ fieldset {
     border-radius: 8px;
     margin: 5px;
     padding: 5px;
-    width: 800px;
+    width: 790px;
 }
 
 fieldset .buttons {
