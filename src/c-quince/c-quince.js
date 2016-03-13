@@ -57,9 +57,9 @@ cquince = {};
         this.spriteSheet = spriteSheet;
         this.sprite = sprite;
         this.stage = stage;
-        this.tween = createjs.Tween(sprite, { paused: true });
         this.queue = [];
         this.speed = 1000;
+        this.playing = false;
     };
 
     cquince.Sprite.prototype = {
@@ -73,7 +73,7 @@ cquince = {};
             queue(function() {
                 console.log("animate " + animation);
                 this.sprite.gotoAndPlay(animation);
-                this.play();
+                playNext.call(this);
             }, this, []);
             return this;
         },
@@ -94,7 +94,7 @@ cquince = {};
                         y: this.sprite.y + y
                     }, this.speed / 2)
                     .wait(this.speed / 4)
-                    .call(this.play, [], this);
+                    .call(playNext, [], this);
             }, this);
             return this;
         },
@@ -104,7 +104,9 @@ cquince = {};
          * @returns {cquince.Sprite} This object
          */
         play: function() {
-            playNext.call(this);
+            if (!this.playing) {
+                playNext.call(this);
+            }
             return this;
         },
         /**
@@ -205,8 +207,11 @@ cquince = {};
 
     function playNext() {
         if (this.queue.length > 0) {
+            this.playing = true;
             var f = this.queue.shift();
             f.call(this, []);
+        } else {
+            this.playing = false;
         }
     }
 })();
