@@ -1,54 +1,24 @@
-#demoCanvas {
-    border: 10px solid skyblue;
-    border-radius: 8px;
-    margin: 5px;
+#logo-container {
+    padding: 5px;
+}
+
+#demo-canvas {
     background: url('../images/background.png') -9px -9px;
 }
 
 #workspace {
-    border: 10px solid slategray;
-    border-radius: 8px;
-    background-color: #f0f0f0;
-    margin: 5px;
-    padding: 5px;
-    width: 790px;
-    height: 200px;
-    font-size: larger;
-    font-weight: bold;
-    color: dimgrey;
     font-family: Consolas, "Courier New", sans-serif;
 }
 
-label.workspace {
-    border-bottom: 5px solid skyblue;
-    margin: 5px;
-    padding: 5px;
-    display: inline-block;
-    width: 810px;
-    font-size: larger;
+#movement-controls {
+    right: 20px;
 }
 
-button {
-    border: 2px solid lightgrey;
-    background-color: #f0f0f0;
-    margin: 2px;
-    color: dimgrey;
-    font-weight: bold;
-    font-size: 12px;
-    height: 26px;
-    font-family: Consolas, "Courier New", sans-serif;
+#play-controls {
+    right: 20px;
 }
 
-fieldset {
-    border: 10px solid slategray;
-    border-radius: 8px;
-    margin: 5px;
-    padding: 5px;
-    width: 790px;
-}
-
-fieldset .buttons {
-}
-
-fieldset .buttons button {
+.button-spacer {
+    display: block;
+    margin: 6px 0;
 }

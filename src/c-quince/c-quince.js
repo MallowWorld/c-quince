@@ -211,10 +211,6 @@ cquince = {};
     }
 })();
 
-function $(id) {
-    return document.getElementById(id);
-}
-
 /**
  * Initialize the default sprite instance.
  * 
@@ -331,6 +327,6 @@ function stop() {
  * @returns {*|cquince.Sprite} The sprite object
  */
 function execute(textarea) {
-    eval($(textarea || "workspace").value);
+    eval(document.getElementById(textarea || "workspace").value);
     return sprite.play();
 }

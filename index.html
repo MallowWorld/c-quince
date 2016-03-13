@@ -1,46 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>C-Quince Demo</title>
-    <link rel="stylesheet" href="css/stylesheet.css" />
-    <script src="javascript/easeljs-0.8.2.min.js"></script>
-    <script src="javascript/tweenjs-0.6.2.min.js"></script>
-    <script src="javascript/preloadjs-0.6.2.min.js"></script>
-    <script src="src/c-quince/c-quince.js"></script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="bower_components/Materialize/templates/starter-template/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/stylesheet.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body onload="init()">
-    <fieldset>
-        <div class="buttons">
-            <button onclick="moveUp().play()">Move Up</button>
-            <br />
-            <button onclick="moveLeft().play()">Move Left</button>
-            <button onclick="moveRight().play()">Move Right</button>
-            <br />
-            <button onclick="moveDown().play()">Move Down</button>
-        </div>
-        <br />
-        <div>
-            <button onclick="spin().play()">Spin</button>
-            <button onclick="peck().play()">Peck</button>
-            <button onclick="bow().play()">Bow</button>
-            <button onclick="reset()">Reset</button>
-        </div>
-    </fieldset>
-    <canvas id="demoCanvas" width="800" height="800"></canvas>
-    <br />
-    <label class="workspace" for="workspace">Workspace</label>
-    <br />
-    <textarea id="workspace">
-setSpeed(0.5);
 
-moveDown();
-moveLeft();
-moveUp();
-moveRight();</textarea>
-    <br />
-    <button onclick="execute()">Run</button>
-    <button onclick="stop()">Stop</button>
-    <button onclick="reset()">Reset</button>
+<body onload="init('demo-canvas')">
+    <nav class="light-blue darken-3" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo">
+                <img src="images/c-quince.png" height="55" />
+                <img src="images/logo_text.png" alt="C-Quince - Kids in Code" />
+            </a>
+        </div>
+    </nav>
+    <div class="section section-1 no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="row center">
+                <div id="movement-controls" class="pinned">
+                    <a class="waves-effect waves-light blue-grey btn" onclick="moveUp().play()"><i class="material-icons center">keyboard_arrow_up</i></a>
+                    <span class="button-spacer"></span>
+                    <a class="waves-effect waves-light blue-grey btn" onclick="moveLeft().play()"><i class="material-icons center">keyboard_arrow_left</i></a>
+                    <a class="waves-effect waves-light blue-grey btn" onclick="moveRight().play()"><i class="material-icons center">keyboard_arrow_right</i></a>
+                    <span class="button-spacer"></span>
+                    <a class="waves-effect waves-light blue-grey btn" onclick="moveDown().play()"><i class="material-icons center">keyboard_arrow_down</i></a>
+                </div>
+                <div id="play-controls" class="fixed-action-btn vertical click-to-toggle pinned">
+                    <a class="waves-effect waves-light btn-floating btn-large red">
+                        <i class="large material-icons">movie</i>
+                    </a>
+                    <ul>
+                        <li><a class="btn-floating green" onclick="execute()"><i class="material-icons center">play_arrow</i></a></li>
+                        <li><a class="btn-floating red" onclick="stop()"><i class="material-icons center">stop</i></a></li>
+                        <li><a class="btn-floating blue" onclick="reset()"><i class="material-icons center">replay</i></a></li>
+                    </ul>
+                </div>
+                <canvas id="demo-canvas" class="z-depth-3" width="800" height="800"></canvas>
+            </div>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">code</i>
+                            <textarea id="workspace" class="materialize-textarea">setSpeed(0.5);
+for (var i = 1; i <= 10; i++) {
+    moveDown();
+    moveRight();
+    moveUp();
+    moveLeft();
+}
+spin(); // or peck() or bow()</textarea>
+                            <label for="workspace">Workspace</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="bower_components/EaselJS/lib/easeljs-0.8.2.combined.js"></script>
+    <script type="text/javascript" src="bower_components/TweenJS/lib/tweenjs-0.6.2.combined.js"></script>
+    <script type="text/javascript" src="bower_components/Materialize/templates/starter-template/js/init.js"></script>
+    <script type="text/javascript" src="src/c-quince/c-quince.js"></script>
 </body>
 </html>
