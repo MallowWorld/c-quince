@@ -18,31 +18,19 @@ cquince = {};
      */
     cquince.Sprite = function(canvas) {
         var spriteSheet = new createjs.SpriteSheet({
-            images: ["images/sprite_sheet.png", "images/down_profile_right.png"],
+            images: ["images/sprite_sheet.png"],
             frames: {
                 width: 121, height: 121, regX: -15.5, regY: 21
             },
             animations: {
                 front: 0, right: 1, back: 2, left: 3,
-                spin: [0, 3],
-                peck: {
-                    frames: [
-                        4, 4, 4, 4, 5, 6,
-                        7, 8, 9, 9, 8, 7,
-                        7, 8, 9, 9, 8, 7,
-                        7, 8, 9, 9, 8, 7,
-                        6, 5, 4, 4, 4, 4
-                    ],
-                    speed: 4,
-                    next: "right"
-                },
-                bow: {
-                    frames: [4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 6, 5, 4],
-                    speed: 3,
-                    next: "right"
+                spin: {
+                    frames: [0, 1, 2, 3],
+                    speed: 1,
+                    next: "front"
                 }
             },
-            framerate: 8
+            framerate: 4
         });
         var sprite = new createjs.Sprite(spriteSheet, "front");
         sprite.x = 100;
@@ -148,22 +136,6 @@ cquince = {};
          */
         spin: function() {
             return this.animate("spin");
-        },
-        /**
-         * Perform the "peck" animation.
-         * 
-         * @returns {*|cquince.Sprite} This object
-         */
-        peck: function() {
-            return this.animate("peck");
-        },
-        /**
-         * Perform the "bow" animation.
-         *
-         * @returns {*|cquince.Sprite} This object
-         */
-        bow: function() {
-            return this.animate("bow");
         },
         /**
          * Perform the "move up" animation.
@@ -277,24 +249,6 @@ function moveLeft() {
  */
 function spin() {
     return sprite.spin();
-}
-
-/**
- * Perform the "peck" animation.
- *
- * @returns {*|cquince.Sprite} The sprite object
- */
-function peck() {
-    return sprite.peck();
-}
-
-/**
- * Perform the "bow" animation.
- *
- * @returns {*|cquince.Sprite} The sprite object
- */
-function bow() {
-    return sprite.bow();
 }
 
 /**

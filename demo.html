@@ -28,62 +28,55 @@
     </div>
   </nav>
   <a id="forkme-banner" class="hide-on-med-and-down" href="https://github.com/MallowWorld/c-quince"></a>
-  <section class="section no-pad-bot section-1" id="index-banner">
+  <section class="section section-1 no-pad-bot">
     <div class="container">
-      <br />
-      <br />
-      <h1 class="header center orange-text text-darken-1">C-QUINCE</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A friendly avian robot used to teach kids how to write code.</h5>
+        <div id="movement-controls" class="pinned">
+          <a class="waves-effect waves-light blue-grey btn" onclick="moveUp().play()"><i class="material-icons center">keyboard_arrow_up</i></a>
+          <span class="button-spacer"></span>
+          <a class="waves-effect waves-light blue-grey btn" onclick="moveLeft().play()"><i class="material-icons center">keyboard_arrow_left</i></a>
+          <a class="waves-effect waves-light blue-grey btn" onclick="moveRight().play()"><i class="material-icons center">keyboard_arrow_right</i></a>
+          <span class="button-spacer"></span>
+          <a class="waves-effect waves-light blue-grey btn" onclick="moveDown().play()"><i class="material-icons center">keyboard_arrow_down</i></a>
+        </div>
+        <div id="play-controls" class="fixed-action-btn vertical click-to-toggle pinned">
+          <a class="waves-effect waves-light btn-floating btn-large red">
+            <i class="large material-icons">movie</i>
+          </a>
+          <ul>
+            <li>
+              <a class="btn-floating green" onclick="execute()"><i class="material-icons center">play_arrow</i></a>
+            </li>
+            <li>
+              <a class="btn-floating red" onclick="stop()"><i class="material-icons center">stop</i></a>
+            </li>
+            <li>
+              <a class="btn-floating blue" onclick="reset()"><i class="material-icons center">replay</i></a>
+            </li>
+          </ul>
+        </div>
+        <canvas id="demo-canvas" class="z-depth-2" width="800" height="800"></canvas>
       </div>
-      <div class="row center">
-        <a href="demo.html" id="download-button" class="btn-large waves-effect waves-light orange darken-1">Try it now!</a>
-      </div>
-      <br />
-      <br />
-    </div>
-  </section>
-
-
-  <section class="container section-2">
-    <div class="section">
-
-      <!--   Icon Section   -->
       <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">code</i></h2>
-            <h5 class="center">Learn to code while having fun</h5>
-
-            <p class="light">Using the <a href="https://mallowworld.wordpress.com/tag/c-quince/">printable group activities</a>, kids can learn to code while having fun in a screen-free classroom environment that encourages social skills, hands-on interactivity, and problem solving from an early age.</p>
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">code</i>
+              <textarea id="workspace" class="materialize-textarea">setSpeed(0.5);
+for (var i = 1; i <= 10; i++) {
+  moveDown();
+  moveRight();
+  moveUp();
+  moveLeft();
+}
+spin();</textarea>
+              <label for="workspace">Workspace</label>
+            </div>
           </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">face</i></h2>
-            <h5 class="center">Kid friendly, Teacher approved</h5>
-
-            <p class="light">Kids receive highly engaging activities that are fun and easy to participate in, while teachers receive curriculum that reinforces concepts, teaches new skills, and explores new ideas.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">Enhance group activities</h5>
-
-            <p class="light">Once your students have started going through the activities, use this free online tool to make C-Quince come to life! <a href="index.html">Check out the demo</a> now and stop back often for updates and new content.</p>
-          </div>
-        </div>
+        </form>
       </div>
-
-    </div>
-    <br />
-    <br />
-
-    <div class="section">
-
+      <br/>
+      <br/>
     </div>
   </section>
 

@@ -1,3 +1,16 @@
+nav {
+    box-shadow: none;
+}
+
+nav ul a {
+    color: #fb8c00 !important;
+    font-weight: bold;
+}
+
+nav ul a:hover {
+    color: white !important;
+}
+
 #logo-container {
     padding: 5px;
 }
@@ -11,14 +24,29 @@
 }
 
 #movement-controls {
-    right: 20px;
+    margin-top: 20px;
+    right: 23px;
 }
 
 #play-controls {
-    right: 20px;
+    margin-bottom: 90px;
 }
 
 .button-spacer {
     display: block;
     margin: 6px 0;
+}
+
+.section-1 {
+    position: relative;
+}
+
+#forkme-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 149px;
+    width: 149px;
+    background: url('../images/forkme.png');
+    text-indent: -9000px;
 }
