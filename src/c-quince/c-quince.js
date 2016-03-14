@@ -110,12 +110,14 @@ cquince = {};
                     this.speed = 1000;
                     this.sprite.x = 100;
                     this.sprite.y = 100;
+                    this.playing = false;
                     this.sprite.gotoAndStop("front");
                 }, this, []);
             } else {
                 this.speed = 1000;
                 this.sprite.x = 100;
                 this.sprite.y = 100;
+                this.playing = false;
                 this.sprite.gotoAndStop("front");
             }
             return this;
