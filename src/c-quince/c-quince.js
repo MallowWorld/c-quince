@@ -18,31 +18,19 @@ cquince = {};
      */
     cquince.Sprite = function(canvas) {
         var spriteSheet = new createjs.SpriteSheet({
-            images: ["images/sprite_sheet.png", "images/down_profile_right.png"],
+            images: ["images/sprite_sheet.png"],
             frames: {
                 width: 121, height: 121, regX: -15.5, regY: 21
             },
             animations: {
                 front: 0, right: 1, back: 2, left: 3,
-                spin: [0, 3],
-                peck: {
-                    frames: [
-                        4, 4, 4, 4, 5, 6,
-                        7, 8, 9, 9, 8, 7,
-                        7, 8, 9, 9, 8, 7,
-                        7, 8, 9, 9, 8, 7,
-                        6, 5, 4, 4, 4, 4
-                    ],
-                    speed: 4,
-                    next: "right"
-                },
-                bow: {
-                    frames: [4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 6, 5, 4],
-                    speed: 3,
-                    next: "right"
+                spin: {
+                    frames: [0, 1, 2, 3],
+                    speed: 1,
+                    next: "front"
                 }
             },
-            framerate: 8
+            framerate: 4
         });
         var sprite = new createjs.Sprite(spriteSheet, "front");
         sprite.x = 100;
@@ -57,9 +45,9 @@ cquince = {};
         this.spriteSheet = spriteSheet;
         this.sprite = sprite;
         this.stage = stage;
-        this.tween = createjs.Tween(sprite, { paused: true });
         this.queue = [];
         this.speed = 1000;
+        this.playing = false;
     };
 
     cquince.Sprite.prototype = {
@@ -73,7 +61,7 @@ cquince = {};
             queue(function() {
                 console.log("animate " + animation);
                 this.sprite.gotoAndPlay(animation);
-                this.play();
+                playNext.call(this);
             }, this, []);
             return this;
         },
@@ -94,7 +82,7 @@ cquince = {};
                         y: this.sprite.y + y
                     }, this.speed / 2)
                     .wait(this.speed / 4)
-                    .call(this.play, [], this);
+                    .call(playNext, [], this);
             }, this);
             return this;
         },
@@ -104,7 +92,9 @@ cquince = {};
          * @returns {cquince.Sprite} This object
          */
         play: function() {
-            playNext.call(this);
+            if (!this.playing) {
+                playNext.call(this);
+            }
             return this;
         },
         /**
@@ -120,12 +110,14 @@ cquince = {};
                     this.speed = 1000;
                     this.sprite.x = 100;
                     this.sprite.y = 100;
+                    this.playing = false;
                     this.sprite.gotoAndStop("front");
                 }, this, []);
             } else {
                 this.speed = 1000;
                 this.sprite.x = 100;
                 this.sprite.y = 100;
+                this.playing = false;
                 this.sprite.gotoAndStop("front");
             }
             return this;
@@ -146,22 +138,6 @@ cquince = {};
          */
         spin: function() {
             return this.animate("spin");
-        },
-        /**
-         * Perform the "peck" animation.
-         * 
-         * @returns {*|cquince.Sprite} This object
-         */
-        peck: function() {
-            return this.animate("peck");
-        },
-        /**
-         * Perform the "bow" animation.
-         *
-         * @returns {*|cquince.Sprite} This object
-         */
-        bow: function() {
-            return this.animate("bow");
         },
         /**
          * Perform the "move up" animation.
@@ -205,8 +181,11 @@ cquince = {};
 
     function playNext() {
         if (this.queue.length > 0) {
+            this.playing = true;
             var f = this.queue.shift();
             f.call(this, []);
+        } else {
+            this.playing = false;
         }
     }
 })();
@@ -272,24 +251,6 @@ function moveLeft() {
  */
 function spin() {
     return sprite.spin();
-}
-
-/**
- * Perform the "peck" animation.
- *
- * @returns {*|cquince.Sprite} The sprite object
- */
-function peck() {
-    return sprite.peck();
-}
-
-/**
- * Perform the "bow" animation.
- *
- * @returns {*|cquince.Sprite} The sprite object
- */
-function bow() {
-    return sprite.bow();
 }
 
 /**
