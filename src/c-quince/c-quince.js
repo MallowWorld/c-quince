@@ -20,14 +20,13 @@ cquince = {};
         var spriteSheet = new createjs.SpriteSheet({
             images: ["images/sprite_sheet.png"],
             frames: {
-                width: 121, height: 121, regX: -15.5, regY: 21
+                width: 105.5, height: 121, regX: -15.5, regY: 21, spacing: 15.5
             },
             animations: {
                 front: 0, right: 1, back: 2, left: 3,
                 spin: {
                     frames: [0, 1, 2, 3],
-                    speed: 1,
-                    next: "front"
+                    speed: 1
                 }
             },
             framerate: 4
@@ -48,6 +47,9 @@ cquince = {};
         this.queue = [];
         this.speed = 1000;
         this.playing = false;
+
+        // register keyup event
+        document.addEventListener("keydown", onKeyDown.bind(this), true);
     };
 
     cquince.Sprite.prototype = {
@@ -187,6 +189,36 @@ cquince = {};
         } else {
             this.playing = false;
         }
+    }
+
+    function onKeyDown(e) {
+        var result = true;
+        switch (e.keyCode) {
+            case 37:
+            case 38:
+            case 39:
+            case 40:
+                e.preventDefault();
+                result = false;
+                break;
+        }
+
+        switch (e.keyCode) {
+            case 37:
+                this.stop().moveLeft().play();
+                break;
+            case 38:
+                this.stop().moveUp().play();
+                break;
+            case 39:
+                this.stop().moveRight().play();
+                break;
+            case 40:
+                this.stop().moveDown().play();
+                break;
+        }
+
+        return result;
     }
 })();
 
