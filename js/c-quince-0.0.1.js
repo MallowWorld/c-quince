@@ -20,14 +20,13 @@ cquince = {};
         var spriteSheet = new createjs.SpriteSheet({
             images: ["images/sprite_sheet.png"],
             frames: {
-                width: 121, height: 121, regX: -15.5, regY: 21
+                width: 105.5, height: 121, regX: -15.5, regY: 21, spacing: 15.5
             },
             animations: {
                 front: 0, right: 1, back: 2, left: 3,
                 spin: {
                     frames: [0, 1, 2, 3],
-                    speed: 1,
-                    next: "front"
+                    speed: 1
                 }
             },
             framerate: 4
