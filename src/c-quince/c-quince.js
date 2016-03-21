@@ -14,11 +14,12 @@ cquince = {};
      * the <code>play</code> method is used to execute them.
      * 
      * @param canvas The HTML5 canvas elementID
+     * @param avatar The character to use, defaults to cquince [cquince, bug]
      * @constructor
      */
-    cquince.Sprite = function(canvas) {
+    cquince.Sprite = function(canvas, avatar) {
         var spriteSheet = new createjs.SpriteSheet({
-            images: ["images/sprite_sheet.png"],
+            images: ["images/sprite_sheet_" + avatar + ".png"],
             frames: {
                 width: 105.5, height: 121, regX: -15.5, regY: 21, spacing: 15.5
             },
@@ -225,10 +226,11 @@ cquince = {};
 /**
  * Initialize the default sprite instance.
  * 
- * @param canvas* The HTML5 canvas elementID, defaults to "demoCanvas"
+ * @param canvas The HTML5 canvas elementID, defaults to "demoCanvas"
+ * @param avatar The character to use, defaults to cquince
  */
-function init(canvas) {
-    window.sprite = new cquince.Sprite(canvas || "demoCanvas");
+function init(canvas, avatar) {
+    window.sprite = new cquince.Sprite(canvas || "demoCanvas", avatar || "cquince");
 }
 
 /**
