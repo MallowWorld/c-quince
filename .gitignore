@@ -2,6 +2,3 @@ bower_components
 node_modules
 *.iml
 .idea
-bundle.js
-css/materialize.min.css
-css/starter-template.css
