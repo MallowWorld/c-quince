@@ -28,6 +28,7 @@ function Sprite(canvas, avatar) {
       front: 0, right: 1, back: 2, left: 3,
       spin: {
         frames: [0, 1, 2, 3],
+        next: "front",
         speed: 1
       }
     },
@@ -36,6 +37,7 @@ function Sprite(canvas, avatar) {
   var sprite = new createjs.Sprite(spriteSheet, "front");
   sprite.x = 100;
   sprite.y = 100;
+  sprite.on("animationend", this._playNext, this);
 
   var stage = new createjs.Stage(canvas);
   stage.addChild(sprite);
@@ -51,8 +53,8 @@ function Sprite(canvas, avatar) {
   this.playing = false;
 
   // register keyup event
-  document.addEventListener("keydown", onKeyDown.bind(this), true);
-};
+  // document.addEventListener("keydown", this._onKeyDown.bind(this), true);
+}
 
 Sprite.prototype = {
   /**
@@ -62,11 +64,11 @@ Sprite.prototype = {
    * @returns {Sprite} This object
    */
   animate: function(animation) {
-    queue(function() {
+    this._queue(function() {
       console.log("animate " + animation);
+
       this.sprite.gotoAndPlay(animation);
-      playNext.call(this);
-    }, this, []);
+    }, this);
     return this;
   },
   /**
@@ -77,16 +79,16 @@ Sprite.prototype = {
    * @returns {Sprite} This object
    */
   move: function(x, y) {
-    queue(function() {
+    this._queue(function() {
       console.log("move " + x + "," + y);
       createjs.Tween.get(this.sprite)
-        .wait(this.speed / 4)
+        .wait(this.speed / 8)
         .to({
           x: this.sprite.x + x,
           y: this.sprite.y + y
         }, this.speed / 2)
-        .wait(this.speed / 4)
-        .call(playNext, [], this);
+        .wait(this.speed / 8)
+        .call(this._playNext, [], this);
     }, this);
     return this;
   },
@@ -97,7 +99,7 @@ Sprite.prototype = {
    */
   play: function() {
     if (!this.playing) {
-      playNext.call(this);
+      this._playNext();
     }
     return this;
   },
@@ -110,19 +112,9 @@ Sprite.prototype = {
   reset: function() {
     if (this.queue.length > 0) {
       this.queue = [];
-      queue(function () {
-        this.speed = 1000;
-        this.sprite.x = 100;
-        this.sprite.y = 100;
-        this.playing = false;
-        this.sprite.gotoAndStop("front");
-      }, this, []);
+      this._queue(this._reset, this, []);
     } else {
-      this.speed = 1000;
-      this.sprite.x = 100;
-      this.sprite.y = 100;
-      this.playing = false;
-      this.sprite.gotoAndStop("front");
+      this._reset();
     }
     return this;
   },
@@ -174,54 +166,60 @@ Sprite.prototype = {
    */
   moveLeft: function() {
     return this.animate("left").move(-100, 0);
+  },
+
+  _queue: function(f, context, args) {
+    context.queue.push(function() {
+      f.call(context, args);
+    });
+  },
+
+  _reset: function() {
+    this.speed = 1000;
+    this.sprite.x = 100;
+    this.sprite.y = 100;
+    this.playing = false;
+    this.sprite.gotoAndStop("front");
+  },
+  _playNext: function() {
+    if (this.queue.length > 0) {
+      this.playing = true;
+      var f = this.queue.shift();
+      f.call(this, []);
+    } else {
+      this.playing = false;
+    }
+  },
+  _onKeyDown: function(e) {
+    var result = true;
+    switch (e.keyCode) {
+      case 37:
+      case 38:
+      case 39:
+      case 40:
+        e.preventDefault();
+        result = false;
+        break;
+    }
+  
+    switch (e.keyCode) {
+      case 37:
+        this.stop().moveLeft().play();
+        break;
+      case 38:
+        this.stop().moveUp().play();
+        break;
+      case 39:
+        this.stop().moveRight().play();
+        break;
+      case 40:
+        this.stop().moveDown().play();
+        break;
+    }
+  
+    return result;
   }
 };
-
-function queue(f, context, args) {
-  context.queue.push(function() {
-    f.call(context, args);
-  });
-}
-
-function playNext() {
-  if (this.queue.length > 0) {
-    this.playing = true;
-    var f = this.queue.shift();
-    f.call(this, []);
-  } else {
-    this.playing = false;
-  }
-}
-
-function onKeyDown(e) {
-  var result = true;
-  switch (e.keyCode) {
-    case 37:
-    case 38:
-    case 39:
-    case 40:
-      e.preventDefault();
-      result = false;
-      break;
-  }
-
-  switch (e.keyCode) {
-    case 37:
-      this.stop().moveLeft().play();
-      break;
-    case 38:
-      this.stop().moveUp().play();
-      break;
-    case 39:
-      this.stop().moveRight().play();
-      break;
-    case 40:
-      this.stop().moveDown().play();
-      break;
-  }
-
-  return result;
-}
 
 // export module
 module.exports = Sprite;
