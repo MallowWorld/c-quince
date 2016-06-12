@@ -128,6 +128,9 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
   module.exports = canvas;
 } else {
   window.cquince = canvas;
+
+  // loaded as <script> tag, automatically run init
+  init();
 }
 
 console.log("canvas loaded");
