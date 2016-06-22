@@ -1,0 +1,54 @@
+#move-up {
+  binding: object(window);
+  click: moveUpNow;
+}
+
+#move-right {
+  binding: object(window);
+  click: moveRightNow;
+}
+
+#move-down {
+  binding: object(window);
+  click: moveDownNow;
+}
+
+#move-left {
+  binding: object(window);
+  click: moveLeftNow;
+}
+
+#execute {
+  binding: object(window);
+  click: execute;
+}
+
+#stop {
+  binding: object(window);
+  click: stop;
+}
+
+#reset {
+  binding: object(window);
+  click: reset;
+}
+
+#c-quince {
+  binding: object(window);
+  click: initCquince;
+}
+
+#bug {
+  binding: object(window);
+  click: initBug;
+}
+
+#slider {
+  binding: object(window);
+  change: setSpeedOnChange;
+}
+
+#demo-canvas {
+  binding: object(window);
+  load: init;
+}

@@ -2,13 +2,14 @@
 <html>
 <head>
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.min.css" media="screen,projection"/>
-  <link type="text/css" rel="stylesheet" href="bower_components/Materialize/templates/starter-template/css/style.css"/>
+  <link type="text/css" rel="stylesheet" href="lib/materialize-css/dist/css/materialize.min.css" media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="lib/materialize-css/templates/starter-template/css/style.css"/>
   <link type="text/css" rel="stylesheet" href="css/stylesheet.css"/>
+  <link type="text/bss" rel="behaviors" href="bss/stylesheet.bss"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body onload="init('demo-canvas', 'cquince')">
+<body>
   <nav class="transparent" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">
@@ -32,12 +33,12 @@
     <div class="container">
       <div class="row center">
         <div id="movement-controls" class="pinned">
-          <a class="waves-effect waves-light blue-grey btn" onclick="moveUp().play()"><i class="material-icons center">keyboard_arrow_up</i></a>
+          <a id="move-up" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_up</i></a>
           <span class="button-spacer"></span>
-          <a class="waves-effect waves-light blue-grey btn" onclick="moveLeft().play()"><i class="material-icons center">keyboard_arrow_left</i></a>
-          <a class="waves-effect waves-light blue-grey btn" onclick="moveRight().play()"><i class="material-icons center">keyboard_arrow_right</i></a>
+          <a id="move-left" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_left</i></a>
+          <a id="move-right" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_right</i></a>
           <span class="button-spacer"></span>
-          <a class="waves-effect waves-light blue-grey btn" onclick="moveDown().play()"><i class="material-icons center">keyboard_arrow_down</i></a>
+          <a id="move-down" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_down</i></a>
         </div>
         <div id="play-controls" class="fixed-action-btn vertical click-to-toggle pinned">
           <a class="waves-effect waves-light btn-floating btn-large red">
@@ -45,13 +46,13 @@
           </a>
           <ul>
             <li>
-              <a class="btn-floating green" onclick="execute()"><i class="material-icons center">play_arrow</i></a>
+              <a id="execute" class="btn-floating green"><i class="material-icons center">play_arrow</i></a>
             </li>
             <li>
-              <a class="btn-floating red" onclick="stop()"><i class="material-icons center">stop</i></a>
+              <a id="stop" class="btn-floating red"><i class="material-icons center">stop</i></a>
             </li>
             <li>
-              <a class="btn-floating blue" onclick="reset()"><i class="material-icons center">replay</i></a>
+              <a id="reset" class="btn-floating blue"><i class="material-icons center">replay</i></a>
             </li>
           </ul>
         </div>
@@ -61,9 +62,9 @@
         <div class="input-field col s3">
           <i class="material-icons prefix light-blue-text text-darken-3">adb</i>
           <label>Character</label><br />
-          <input id="c-quince" name="character" class="light-blue-text" type="radio" value="cquince" onchange="init('demo-canvas', this.value)" checked="checked" />
+          <input id="c-quince" name="character" class="light-blue-text" type="radio" value="cquince" checked="checked" />
           <label for="c-quince">C-Quince</label>
-          <input id="bug" name="character" class="light-blue-text" type="radio" value="bug" onchange="init('demo-canvas', this.value)" />
+          <input id="bug" name="character" class="light-blue-text" type="radio" value="bug" />
           <label for="bug">Bug</label>
         </div>
         <div class="input-field col s3">
@@ -96,12 +97,10 @@ spin();</textarea>
     <br />
     <br />
   </footer>
-  
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
-  <script type="text/javascript" src="bower_components/EaselJS/lib/easeljs-0.8.2.combined.js"></script>
-  <script type="text/javascript" src="bower_components/TweenJS/lib/tweenjs-0.6.2.combined.js"></script>
-  <script type="text/javascript" src="bower_components/Materialize/templates/starter-template/js/init.js"></script>
-  <script type="text/javascript" src="src/c-quince/c-quince.js"></script>
+
+  <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/materialize-css/dist/js/materialize.min.js"></script>
+  <script type="text/javascript" src="lib/materialize-css/templates/starter-template/js/init.js"></script>
+  <script type="text/javascript" src="bundle.js"></script>
 </body>
 </html>
