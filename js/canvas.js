@@ -7,12 +7,24 @@ var sprite;
 
 /**
  * Initialize the default sprite instance.
- *
- * @param canvas The HTML5 canvas elementID, defaults to "demoCanvas"
- * @param avatar The character to use, defaults to 'cquince'
  */
-function init(canvas, avatar) {
-  sprite = new Sprite(canvas || "demo-canvas", avatar || "cquince");
+function init() {
+  sprite = new Sprite("demo-canvas", "cquince");
+}
+
+/**
+ * Initialize c-quince.
+ */
+function initCquince() {
+  sprite = new Sprite("demo-canvas", "cquince");
+}
+
+
+/**
+ * Initialize Bug.
+ */
+function initBug() {
+  sprite = new Sprite("demo-canvas", "bug");
 }
 
 /**
@@ -22,6 +34,15 @@ function init(canvas, avatar) {
  */
 function setSpeed(speed) {
   sprite.speed = speed * 1000;
+}
+
+/**
+ * Set the speed, in seconds, that each movement animation takes to complete.
+ *
+ * @param e The slider element
+ */
+function setSpeedOnChange(e) {
+  setSpeed(e.get());
 }
 
 /**
@@ -58,6 +79,42 @@ function moveDown() {
  */
 function moveLeft() {
   return sprite.moveLeft();
+}
+
+/**
+ * Perform the "move up" animation.
+ *
+ * @returns {*|Sprite} The sprite object
+ */
+function moveUpNow() {
+  return moveUp().play();
+}
+
+/**
+ * Perform the "move right" animation.
+ *
+ * @returns {*|Sprite} The sprite object
+ */
+function moveRightNow() {
+  return moveRight().play();
+}
+
+/**
+ * Perform the "move down" animation.
+ *
+ * @returns {*|Sprite} The sprite object
+ */
+function moveDownNow() {
+  return moveDown().play();
+}
+
+/**
+ * Perform the "move left" animation.
+ *
+ * @returns {*|Sprite} The sprite object
+ */
+function moveLeftNow() {
+  return moveLeft().play();
 }
 
 /**
@@ -100,22 +157,28 @@ function stop() {
 /**
  * Execute the code block for the given textarea as a script.
  *
- * @param textarea* The textarea <code>elementID</code>, defaults to "workspace"
  * @returns {*|Sprite} The sprite object
  */
-function execute(textarea) {
-  eval(document.getElementById(textarea || "workspace").value);
+function execute() {
+  eval(document.getElementById("workspace").value);
   return sprite.play();
 }
 
 // collect canvas functions
 var canvas = {
   init: init,
+  initCquince: initCquince,
+  initBug: initBug,
   setSpeed: setSpeed,
+  setSpeedOnChange: setSpeedOnChange,
   moveUp: moveUp,
   moveRight: moveRight,
   moveDown: moveDown,
   moveLeft: moveLeft,
+  moveUpNow: moveUpNow,
+  moveRightNow: moveRightNow,
+  moveDownNow: moveDownNow,
+  moveLeftNow: moveLeftNow,
   spin: spin,
   play: play,
   reset: reset,
@@ -123,16 +186,7 @@ var canvas = {
   execute: execute
 };
 
-// conditionally export module to browser
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-  module.exports = canvas;
-} else {
-  window.cquince = canvas;
-}
-
-if (window) {
-  // loaded as <script> tag, automatically run init
-  init();
-}
+// export module
+module.exports = canvas;
 
 console.log("canvas loaded");
