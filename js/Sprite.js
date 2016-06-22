@@ -51,9 +51,6 @@ function Sprite(canvas, avatar) {
   this.queue = [];
   this.speed = 1000;
   this.playing = false;
-
-  // register keyup event
-  // document.addEventListener("keydown", onKeyDown, true);
 }
 
 Sprite.prototype = {
@@ -193,36 +190,6 @@ function playNext(e, sprite) {
   } else {
     sprite.playing = false;
   }
-}
-
-function onKeyDown(e) {
-  var result = true;
-  switch (e.keyCode) {
-    case 37:
-    case 38:
-    case 39:
-    case 40:
-      e.preventDefault();
-      result = false;
-      break;
-  }
-
-  switch (e.keyCode) {
-    case 37:
-      this.stop().moveLeft().play();
-      break;
-    case 38:
-      this.stop().moveUp().play();
-      break;
-    case 39:
-      this.stop().moveRight().play();
-      break;
-    case 40:
-      this.stop().moveDown().play();
-      break;
-  }
-
-  return result;
 }
 
 // export module
