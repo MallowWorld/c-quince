@@ -6,7 +6,8 @@
   "dependencies": {
     "behaviors": "^0.2.0",
     "createjs-collection": "^0.8.2-1",
-    "materialize-css": "^0.97.6"
+    "materialize-css": "^0.97.6",
+    "node-blockly": "^1.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.9.1",

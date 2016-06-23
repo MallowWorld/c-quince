@@ -3,13 +3,20 @@
 console.log("Loading canvas...");
 
 var Sprite = require("./Sprite.js");
-var sprite;
+var Blockly = require("./Blockly");
+
+var sprite, workspace;
 
 /**
  * Initialize the default sprite instance.
  */
 function init() {
   sprite = new Sprite("demo-canvas", "cquince");
+
+  // integrate Blockly into the page
+  workspace = Blockly.inject('blocklyDiv', {
+    toolbox: document.getElementById('toolbox')
+  });
 }
 
 /**
@@ -42,7 +49,7 @@ function setSpeed(speed) {
  * @param e The slider element
  */
 function setSpeedOnChange(e) {
-  setSpeed(e.get());
+  setSpeed(e.value);
 }
 
 /**
@@ -160,7 +167,15 @@ function stop() {
  * @returns {*|Sprite} The sprite object
  */
 function execute() {
-  eval(document.getElementById("workspace").value);
+  // eval(document.getElementById("workspace").value);
+  var code = Blockly.JavaScript.workspaceToCode(workspace);
+  console.log("Executing...\n" + code);
+  try {
+    eval(code);
+  } catch (ex) {
+    console.error("Error: " + ex);
+  }
+
   return sprite.play();
 }
 
@@ -183,7 +198,8 @@ var canvas = {
   play: play,
   reset: reset,
   stop: stop,
-  execute: execute
+  execute: execute,
+  Blockly: Blockly
 };
 
 // export module

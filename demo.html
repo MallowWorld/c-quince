@@ -32,34 +32,55 @@
   <section class="section section-1 no-pad-bot">
     <div class="container">
       <div class="row center">
-        <div id="movement-controls" class="pinned">
-          <a id="move-up" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_up</i></a>
-          <span class="button-spacer"></span>
-          <a id="move-left" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_left</i></a>
-          <a id="move-right" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_right</i></a>
-          <span class="button-spacer"></span>
-          <a id="move-down" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_down</i></a>
+        <div class="col m6">
+          <div id="movement-controls" class="pinned">
+            <a id="move-up" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_up</i></a>
+            <span class="button-spacer"></span>
+            <a id="move-left" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_left</i></a>
+            <a id="move-right" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_right</i></a>
+            <span class="button-spacer"></span>
+            <a id="move-down" class="waves-effect waves-light blue-grey btn"><i class="material-icons center">keyboard_arrow_down</i></a>
+          </div>
+          <div id="play-controls" class="fixed-action-btn vertical click-to-toggle pinned">
+            <a class="waves-effect waves-light btn-floating btn-large red">
+              <i class="large material-icons">movie</i>
+            </a>
+            <ul>
+              <li>
+                <a id="execute" class="btn-floating green"><i class="material-icons center">play_arrow</i></a>
+              </li>
+              <li>
+                <a id="stop" class="btn-floating red"><i class="material-icons center">stop</i></a>
+              </li>
+              <li>
+                <a id="reset" class="btn-floating blue"><i class="material-icons center">replay</i></a>
+              </li>
+            </ul>
+          </div>
+          <canvas id="demo-canvas" class="z-depth-2" width="800" height="800" style="width: 100%;"></canvas>
         </div>
-        <div id="play-controls" class="fixed-action-btn vertical click-to-toggle pinned">
-          <a class="waves-effect waves-light btn-floating btn-large red">
-            <i class="large material-icons">movie</i>
-          </a>
-          <ul>
-            <li>
-              <a id="execute" class="btn-floating green"><i class="material-icons center">play_arrow</i></a>
-            </li>
-            <li>
-              <a id="stop" class="btn-floating red"><i class="material-icons center">stop</i></a>
-            </li>
-            <li>
-              <a id="reset" class="btn-floating blue"><i class="material-icons center">replay</i></a>
-            </li>
-          </ul>
+        <div class="col m6">
+          <!--<div class="input-field">-->
+            <!--<i class="material-icons prefix light-blue-text text-darken-3">code</i>-->
+            <!--<label for="blocklyDiv">Workspace</label>-->
+            <div id="blocklyDiv" style="height: 400px; width: 100%;"></div>
+
+            <!--<textarea id="workspace" class="materialize-textarea">setSpeed(0.5);-->
+            <!--for (var i = 1; i <= 10; i++) {-->
+            <!--moveDown();-->
+            <!--moveRight();-->
+            <!--moveUp();-->
+            <!--moveLeft();-->
+            <!--}-->
+            <!--spin();</textarea>-->
+            <!--<label for="workspace">Workspace</label>-->
+          <!--</div>-->
         </div>
-        <canvas id="demo-canvas" class="z-depth-2" width="800" height="800"></canvas>
       </div>
       <div class="row">
-        <div class="input-field col s3">
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
           <i class="material-icons prefix light-blue-text text-darken-3">adb</i>
           <label>Character</label><br />
           <input id="c-quince" name="character" class="light-blue-text" type="radio" value="cquince" checked="checked" />
@@ -67,22 +88,10 @@
           <input id="bug" name="character" class="light-blue-text" type="radio" value="bug" />
           <label for="bug">Bug</label>
         </div>
-        <div class="input-field col s3">
+        <div class="input-field col s6">
           <i class="material-icons prefix light-blue-text text-darken-3">compare_arrows</i>
           <label for="slider">Speed</label><br />
           <input id="slider" class="light-blue-text" type="range" min="0.1" max="1.0" step="0.05" value="1.0" onchange="setSpeed(this.value)" />
-        </div>
-        <div class="input-field col s6">
-          <i class="material-icons prefix light-blue-text text-darken-3">code</i>
-          <textarea id="workspace" class="materialize-textarea">setSpeed(0.5);
-for (var i = 1; i <= 10; i++) {
-  moveDown();
-  moveRight();
-  moveUp();
-  moveLeft();
-}
-spin();</textarea>
-          <label for="workspace">Workspace</label>
         </div>
       </div>
       <br/>
@@ -97,6 +106,12 @@ spin();</textarea>
     <br />
     <br />
   </footer>
+
+  <xml id="toolbox" style="display: none">
+    <block type="controls_repeat_times"></block>
+    <block type="controls_move"></block>
+    <block type="controls_spin"></block>
+  </xml>
 
   <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="lib/materialize-css/dist/js/materialize.min.js"></script>
