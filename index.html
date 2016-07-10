@@ -2,17 +2,17 @@
 <html>
 <head>
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.min.css" media="screen,projection"/>
-  <link type="text/css" rel="stylesheet" href="bower_components/Materialize/templates/starter-template/css/style.css"/>
+  <link type="text/css" rel="stylesheet" href="lib/materialize-css/dist/css/materialize.min.css" media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="lib/materialize-css/templates/starter-template/css/style.css"/>
   <link type="text/css" rel="stylesheet" href="css/stylesheet.css"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body onload="init('demo-canvas')">
+<body>
   <nav class="transparent" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">
-        <img src="images/c-quince.png" height="55"/>
+        <img src="images/c-quince.png" style="height: 55px;"/>
         <img src="images/logo_text.png" alt="C-Quince - Kids in Code"/>
       </a>
       <ul class="right hide-on-med-and-down">
@@ -73,7 +73,7 @@
             <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
             <h5 class="center">Enhance group activities</h5>
 
-            <p class="light">Once your students have started going through the activities, use this open source free online tool to make C-Quince come to life! <a href="index.html">Check out the demo</a> now and stop back often for updates and new content.</p>
+            <p class="light">Once your students have started going through the activities, use this open source free online tool to make C-Quince come to life! <a href="demo.html">Check out the demo</a> now and stop back often for updates and new content.</p>
           </div>
         </div>
       </div>
@@ -94,12 +94,10 @@
     <br />
     <br />
   </footer>
-  
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
-  <script type="text/javascript" src="bower_components/EaselJS/lib/easeljs-0.8.2.combined.js"></script>
-  <script type="text/javascript" src="bower_components/TweenJS/lib/tweenjs-0.6.2.combined.js"></script>
-  <script type="text/javascript" src="bower_components/Materialize/templates/starter-template/js/init.js"></script>
-  <script type="text/javascript" src="src/c-quince/c-quince.js"></script>
+
+  <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/materialize-css/dist/js/materialize.min.js"></script>
+  <script type="text/javascript" src="lib/materialize-css/templates/starter-template/js/init.js"></script>
+  <script type="text/javascript" src="bundle.js"></script>
 </body>
 </html>

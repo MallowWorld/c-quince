@@ -1,0 +1,48 @@
+{
+  "name": "c-quince",
+  "version": "0.0.2",
+  "description": "A friendly avian robot used to teach kids how to write code, perhaps without realizing it.",
+  "main": "js/c-quince.js",
+  "dependencies": {
+    "behaviors": "^0.2.0",
+    "createjs-collection": "^0.8.2-1",
+    "materialize-css": "^0.97.6",
+    "node-blockly": "^1.0.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "image-loader": "0.0.1",
+    "jshint": "^2.9.2",
+    "jshint-loader": "^0.8.3",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "node-libs-browser": "^1.0.0",
+    "strip-loader": "^0.1.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.9.11"
+  },
+  "scripts": {
+    "start": "webpack-dev-server -d",
+    "pack": "webpack --config webpack-production.config.js -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MallowWorld/c-quince.git"
+  },
+  "keywords": [
+    "animated",
+    "c-quince",
+    "kids",
+    "code"
+  ],
+  "author": "Stephen Riesenberg <sjohnr@hotmail.com>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/MallowWorld/c-quince/issues"
+  },
+  "homepage": "http://mallowworld.github.io/c-quince"
+}
